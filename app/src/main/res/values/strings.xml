@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ECO_Practica9_Cliente</string>
+    <string name="sandwich">Sandwich</string>
+    <string name="jugo_de_naranja">Jugo de naranja</string>
+    <string name="yogurt">Yogurt</string>
+    <string name="perro_caliente">Perro caliente</string>
+    <string name="men">Menú</string>
+</resources>
