@@ -2,6 +2,8 @@ package com.example.eco_practica9_cliente;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -11,6 +13,15 @@ import java.net.UnknownHostException;
 public class UDPConection extends Thread {
 
     private DatagramSocket socket;
+    private OnMessage observer;
+    private MainActivity main;
+
+
+
+    //Método de suscripción, patron observer
+    public void setObserver (OnMessage observer) {
+        this.observer = observer;
+    }
 
     @Override
     public void run() {
@@ -30,6 +41,9 @@ public class UDPConection extends Thread {
                 // Contructor de String para pasar de de bytes a string
                 String msg = new String(packet.getData()).trim();
                 Log.e(">>>","Datagram recibido" + msg);
+
+                //Deserialización
+                observer.onMessageReceived(msg);
 
             }
 

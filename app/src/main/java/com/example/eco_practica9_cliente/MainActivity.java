@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import model.Order;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMessage{
 
     private Button juiceBtn, sandwichBtn, yogurtBtn, hotdogBtn;
     private UDPConection UDP;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         UDP = new UDPConection();
         UDP.start();
+        UDP.setObserver(this);
         item();
 
     }
@@ -63,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     String json = gson.toJson(order);
                     UDP.sendMessage(json);
+                });
+    }
+
+    @Override
+    public void onMessageReceived(String msg) {
+        runOnUiThread(
+                ()->{
+                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
                 });
     }
 }
